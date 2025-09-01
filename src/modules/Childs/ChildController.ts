@@ -2,20 +2,26 @@ import {Router ,type Request ,type Response ,type NextFunction} from "express"
 import { validateDto } from "../../middlewares"
 import { ChildCreateDto } from "./DTO/ChildDto"
 import upload from "../../middlewares/UploadPicChild"
-import { getChildById } from "./ChildServices"
+import { deleteChild, getAllChildren, getChildById, updateChild } from "./ChildServices"
 const router = Router()
 
 
 
-router.get("/" , (req: Request, res: Response, next: NextFunction) => { 
-    
+router.get("/" , async (req: Request, res: Response, next: NextFunction) => { 
+    try {
+      const children = await getAllChildren();
+      if(children.length === 0) return res.status(200).send([])
+      res.status(200).send(children);
+    } catch (error) {
+      return next({ statusCode: 500, message: `${error}` });
+    }
 })
 router.get("/:id" , async (req: Request, res: Response, next: NextFunction) => { 
   try {
     const childId = Number(req.params.id);
     const childData = await getChildById(childId);
     if (!childData) {
-      return next({ statusCode: 404, message: "بچه‌ای با این شناسه پیدا نشد." });
+      return res.status(200).send({})
     }
     res.status(200).send(childData);
   } catch (error) {
@@ -29,14 +35,30 @@ router.get('/image/:filename', (req, res) => {
   res.sendFile(filePath);
 });
 
-router.post("/" , upload.single("image"),validateDto(ChildCreateDto) , (req: Request, res: Response, next: NextFunction) => { 
-    
-})
-router.put("/:id" ,validateDto(ChildCreateDto) ,  (req: Request, res: Response, next: NextFunction) => { 
 
+router.put("/:id" ,upload.single('image'),validateDto(ChildCreateDto) , async (req: Request, res: Response, next: NextFunction) => { 
+    try {
+    const childId = Number(req.params.id);
+    const childData = await updateChild(childId , req.body , req.file);
+    if (!childData) {
+      next({ statusCode: 404, message: 'کودکی با این  مشخصات یافت نشد' });
+    }
+    res.status(200).send(childData);
+  } catch (error) {
+      return next({ statusCode: 500, message: `${error}` });
+  }
 })
-router.delete("/:id" , (req: Request, res: Response, next: NextFunction) => { 
-
+router.delete("/:id" ,async (req: Request, res: Response, next: NextFunction) => { 
+    try {
+    const childId = Number(req.params.id);
+    const childData = await deleteChild(childId);
+    if (!childData) {
+      return next({ statusCode: 404, message: 'کودکی با این  مشخصات یافت نشد' });
+    }
+    res.status(200).send(childData);
+  } catch (error) {
+      return next({ statusCode: 500, message: `${error}` });
+  }
 })
 
 export default router;

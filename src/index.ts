@@ -16,13 +16,11 @@ app.use("/children", ChildController);
 
 
 import ChildsGradleController from "./modules/ChildsGrade/ChildsGradleController"
-app.use("/children/gradle", ChildsGradleController);
+app.use("/gradle", ChildsGradleController);
 
 
 import MotaghayeratController from "./modules/Motaghayerat/MotaghayeratController"
-app.use("/children/gradle", MotaghayeratController);
-
-
+app.use("/moteghayer", MotaghayeratController);
 
 
 
