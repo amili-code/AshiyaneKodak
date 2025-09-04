@@ -4,7 +4,9 @@ import Child from './Child';
 
 const sequelize: Sequelize = getDbConnection();
 
-class ChildGrade extends Model {}
+class ChildGrade extends Model {
+    remainingAmount: number;
+}
 
 ChildGrade.init(
   {
@@ -13,9 +15,9 @@ ChildGrade.init(
       allowNull: false,
       validate: {
         notEmpty: { msg: 'تاریخ ثبت نام الزامی است.' },
-        isJalaliDateFormat(value: string) {
-          if (!/^14\d{2}\/(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])$/.test(value)) {
-            throw new Error('فرمت تاریخ ثبت نام باید به صورت 1404/02/12 باشد.');
+         isJalaliDateFormat(value: string) {
+          if (!/^1[0-4]\d{2}\/(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])$/.test(value)) {
+            throw new Error('فرمت تاریخ تولد باید به صورت 1404/02/12 باشد.');
           }
         },
       },
@@ -25,9 +27,9 @@ ChildGrade.init(
       allowNull: false,
       validate: {
         notEmpty: { msg: 'تاریخ اتمام دوره الزامی است.' },
-        isJalaliDateFormat(value: string) {
-          if (!/^14\d{2}\/(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])$/.test(value)) {
-            throw new Error('فرمت تاریخ اتمام باید به صورت 1404/02/12 باشد.');
+         isJalaliDateFormat(value: string) {
+          if (!/^1[0-4]\d{2}\/(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])$/.test(value)) {
+            throw new Error('فرمت تاریخ تولد باید به صورت 1404/02/12 باشد.');
           }
         },
       },

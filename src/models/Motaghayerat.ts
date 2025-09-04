@@ -4,7 +4,9 @@ import Child from './Child';
 
 const sequelize: Sequelize = getDbConnection();
 
-class Motaghayerat extends Model {}
+class Motaghayerat extends Model {
+    remainingAmount: number;
+}
 
 Motaghayerat.init(
   {

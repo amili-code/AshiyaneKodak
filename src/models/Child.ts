@@ -69,11 +69,7 @@ Child.init(
     },
     image: {
       type: DataTypes.STRING,
-      allowNull: false,
-      validate: {
-        notEmpty: { msg: 'تصویر الزامی است.' },
-        isUrl: { msg: 'لینک تصویر معتبر نیست.' },
-      },
+      allowNull: true,
     },
     birthdate: {
       type: DataTypes.STRING,
@@ -81,7 +77,7 @@ Child.init(
       validate: {
         notEmpty: { msg: 'تاریخ تولد الزامی است.' },
         isJalaliDateFormat(value: string) {
-          if (!/^14\d{2}\/(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])$/.test(value)) {
+          if (!/^1[0-4]\d{2}\/(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])$/.test(value)) {
             throw new Error('فرمت تاریخ تولد باید به صورت 1404/02/12 باشد.');
           }
         },

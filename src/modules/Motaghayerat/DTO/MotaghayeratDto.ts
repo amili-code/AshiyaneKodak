@@ -1,5 +1,6 @@
 import {
   IsNotEmpty,
+  IsInt,
   IsString,
 } from 'class-validator';
 
@@ -10,9 +11,11 @@ export class MotaghayeratDto {
 
 
   @IsNotEmpty({ message: 'مبلغ باید وارد شود .' })
-  remainingAmount:string;
+  @IsInt({ message: 'مبلغ باید عدد باشد.' })
+  remainingAmount:number;
 
   @IsNotEmpty({ message: 'شناسه کاربر الزامی میباشد' })
-  childId:string;
+  @IsInt({ message: 'شناسه کاربر باید عدد باشد.' })
+  childId:number;
   
 }

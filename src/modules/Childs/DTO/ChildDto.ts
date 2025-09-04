@@ -34,12 +34,8 @@ export class ChildCreateDto {
   @IsNotEmpty({ message: 'سن بچه الزامی است.' })
   age: string;
 
-  @IsNotEmpty({ message: 'تصویر الزامی است.' })
-  @IsUrl({}, { message: 'لینک تصویر معتبر نیست.' })
-  image: string;
-
-  @IsNotEmpty({ message: 'تاریخ تولد الزامی است.' })
-  @Matches(/^14\d{2}\/(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])$/, {
+ @IsNotEmpty({ message: 'تاریخ تولد الزامی است.' })
+  @Matches(/^1[0-4]\d{2}\/(0[1-9]|1[0-2])\/(0[1-9]|[12][0-9]|3[01])$/, {
     message: 'فرمت تاریخ تولد باید به صورت 1404/02/12 باشد.',
   })
   birthdate: string;

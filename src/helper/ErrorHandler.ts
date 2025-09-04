@@ -1,3 +1,5 @@
+import { logger } from ".";
+
 type ErrorResponse = {
   success: false;
   message: string;

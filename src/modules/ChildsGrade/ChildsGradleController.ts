@@ -15,28 +15,30 @@ router.get("/" ,async (req: Request, res: Response, next: NextFunction) => {
     } catch (error) {
         return next({statusCode: 500, message: error });
     }
+    
 })
 router.get("/:id" ,async (req: Request, res: Response, next: NextFunction) => { 
     try {
-        const data = await getChildGradeById(req.body.params)
+
+        const data = await getChildGradeById(Number(req.params.id))
         if(!data) return res.status(200).send({});;
         res.status(200).send(data);
     } catch (error) {
         return next({statusCode: 500, message: error });
     }
 })
-router.post("/") , validateDto(ChildsGradleDto) , async (req: Request, res: Response, next: NextFunction) =>{
-    try {
-        const data = createChildGrade(req.body)
+router.post("/" , validateDto(ChildsGradleDto) , async (req: Request, res: Response, next: NextFunction) => { 
+        try {
+        const data = await createChildGrade(req.body)
         if(!data) return next({statusCode: 400, message: "ثبت نام انجام نشد" });
         res.status(200).send(data);
     } catch (error) {
         return next({statusCode: 500, message: error });
     }
-}
+})
 router.put("/:id" , validateDto(ChildsGradleDto) ,async (req: Request, res: Response, next: NextFunction) => { 
     try {
-        const data = await updateChildGrade(req.body.params , req.body)
+        const data = await updateChildGrade(Number(req.params.id) , req.body)
         if(!data) return next({statusCode: 404, message: "اطلاعات این مقطع ثبت نامی یافت نشد!" });
         res.status(200).send(data);
     } catch (error) {
@@ -45,7 +47,7 @@ router.put("/:id" , validateDto(ChildsGradleDto) ,async (req: Request, res: Resp
 })
 router.delete("/:id" ,async (req: Request, res: Response, next: NextFunction) => { 
    try {
-        const data = await deleteChildGrade(req.body.params)
+        const data = await deleteChildGrade(Number(req.params.id))
         if(!data) return next({statusCode: 404, message: "اطلاعات این مقطع ثبت نامی یافت نشد!" });
         res.status(200).send(data);
     } catch (error) {   
