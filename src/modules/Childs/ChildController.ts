@@ -66,6 +66,19 @@ router.get('/image/:filename', (req, res) => {
   }
 });
 
+router.delete('/image/:id',async (req, res) => {
+ try {
+   const child = await getChildById(Number(req.params.id))
+    child.image = "";
+   
+    const finalData = await updateChild(Number(req.params.id) , child.dataValues , false , false)
+    
+    res.status(200).send(finalData);
+  } catch (error) {
+    console.error('Unexpected error:', error);
+    res.status(500).send('خطای سرور');
+  }
+});
 router.post('/', upload.single('image'),validateDto(ChildCreateDto) ,async (req: Request, res: Response, next: NextFunction) =>{
   try {
       const data = await createChild(req.body , req.file)
@@ -78,7 +91,7 @@ router.post('/', upload.single('image'),validateDto(ChildCreateDto) ,async (req:
 router.put("/:id" ,upload.single('image'),validateDto(ChildCreateDto) , async (req: Request, res: Response, next: NextFunction) => { 
     try {
     const childId = Number(req.params.id);
-    const childData = await updateChild(childId , req.body , req.file);
+    const childData = await updateChild(childId , req.body , req.file , true);
     if (!childData) {
       next({ statusCode: 404, message: 'کودکی با این  مشخصات یافت نشد' });
     }

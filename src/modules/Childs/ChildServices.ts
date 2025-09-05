@@ -21,10 +21,16 @@ export const getChildById = async (id: number) => {
   return await Child.findByPk(id);
 };
 
-export const updateChild = async (id: number, data, file) => {
+export const updateChild = async (id: number, data, file,check) => {
   const child = await Child.findByPk(id);
   if (!child) return null;
-  let imagePath = child.image;
+  let imagePath 
+  if(check){
+    imagePath =  child.image;
+  }
+  else{
+    imagePath = "";
+  }
   if (file) {
     // حذف عکس قبلی
     if (imagePath) {
@@ -56,3 +62,4 @@ export const getChildImage = (filename: string) => {
   }
   return null;
 };
+

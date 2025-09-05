@@ -12,7 +12,7 @@ app.use(express.urlencoded());
 
 
 
-// app.use(consoleLogger)
+app.use(consoleLogger)
 
 
 
