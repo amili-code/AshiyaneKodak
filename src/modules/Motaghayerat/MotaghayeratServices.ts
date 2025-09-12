@@ -1,4 +1,4 @@
-import {Motaghayerat} from '../../models/';
+import {Child, Motaghayerat} from '../../models/';
 
 export const createMotaghayerat = async (data) => {
   return await Motaghayerat.create(data);
@@ -6,6 +6,16 @@ export const createMotaghayerat = async (data) => {
 
 export const getAllMotaghayerats = async () => {
   return await Motaghayerat.findAll();
+};
+
+export const getAllMotaghayeratsMax = async () => {
+  return await Motaghayerat.findAll({
+    include: [{
+      model: Child,
+      as: 'child', // استفاده از alias تعریف شده در ارتباط
+      attributes: ['id', 'firstName', 'lastName', 'gender', 'age' , 'image' , 'fatherPhone' , 'motherPhone','birthdate' ] // فیلدهای مورد نیاز
+    }]
+  });
 };
 
 export const getMotaghayeratById = async (id: number) => {

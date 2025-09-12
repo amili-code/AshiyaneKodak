@@ -1,4 +1,4 @@
-import {Payment} from "../../models"
+import {Payment  , Child , ChildGrade , Motaghayerat} from "../../models"
 
 export const createPayment = async (data) => {
   return await Payment.create(data);
@@ -6,6 +6,28 @@ export const createPayment = async (data) => {
 
 export const getAllPayments = async () => {
   return await Payment.findAll();
+};
+
+export const getAllPaymentsMax = async () => {
+  return await Payment.findAll({
+    include: [
+      {
+        model: Child,
+        as: 'child',
+        attributes: ['id', 'firstName', 'lastName', 'gender', 'fatherPhone', 'motherPhone', 'age', 'birthdate', 'address'] // فیلدهای مورد نیاز از Child
+      },
+      {
+        model: ChildGrade,
+        as: 'childGrade',
+        attributes: ['id', 'grade', 'registerDate', 'endDate', 'remainingAmount'] // فیلدهای مورد نیاز از ChildGrade
+      },
+      {
+        model: Motaghayerat,
+        as: 'motaghayerat',
+        attributes: ['id', 'title', 'remainingAmount'] // فیلدهای مورد نیاز از Motaghayerat
+      }
+    ]
+  });
 };
 
 export const getPaymentById = async (id: number) => {

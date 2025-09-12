@@ -17,6 +17,7 @@ router.get("/" ,async (req: Request, res: Response, next: NextFunction) => {
     }
     
 })
+
 router.get("/:id" ,async (req: Request, res: Response, next: NextFunction) => { 
     try {
 

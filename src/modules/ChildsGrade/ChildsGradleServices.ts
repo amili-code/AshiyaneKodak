@@ -1,4 +1,5 @@
 import ChildGrade from '../../models/ChildGrade';
+import { Child } from '../../models';
 
 export const createChildGrade = async (data) => {
   return await ChildGrade.create(data);
@@ -6,6 +7,16 @@ export const createChildGrade = async (data) => {
 
 export const getAllChildGrades = async () => {
   return await ChildGrade.findAll();
+};
+
+export const getAllChildGradesMax = async () => {
+  return await ChildGrade.findAll({
+    include: [{
+      model: Child,
+      as: 'child', // استفاده از alias تعریف شده در ارتباط
+      attributes: ['id', 'firstName', 'lastName', 'gender', 'age' , 'image' , 'fatherPhone' , 'motherPhone','birthdate' ] // فیلدهای مورد نیاز
+    }]
+  });
 };
 
 export const getChildGradeById = async (id: number) => {

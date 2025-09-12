@@ -32,6 +32,8 @@ app.use("/moteghayer", MotaghayeratController);
 import PaymentController from "./modules/Peyment/PaymentController"
 app.use("/payment", PaymentController);
 
+import RelationalControllers from "./modules/relationalModules/relationalControllers";
+app.use("/rel", RelationalControllers);
 
 
 app.use(catchHandler)
