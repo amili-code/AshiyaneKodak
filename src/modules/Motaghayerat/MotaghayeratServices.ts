@@ -22,6 +22,12 @@ export const getMotaghayeratById = async (id: number) => {
   return await Motaghayerat.findByPk(id);
 };
 
+export const getMotaghayeratByChildId = async (id: number) => {
+  return await Motaghayerat.findAll({where:{
+    childId:id
+  }});
+};
+
 export const updateMotaghayerat = async (id: number, data) => {
   const motaghayer = await Motaghayerat.findByPk(id);
   if (!motaghayer) return null;

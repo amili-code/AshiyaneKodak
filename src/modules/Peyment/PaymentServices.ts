@@ -34,6 +34,12 @@ export const getPaymentById = async (id: number) => {
   return await Payment.findByPk(id);
 };
 
+export const getPaymentByChildId = async (id: number) => {
+  return await Payment.findAll({where:{
+    childId : id
+  }});
+};
+
 export const updatePayment = async (id: number, data) => {
   const payment = await Payment.findByPk(id);
   if (!payment) return null;

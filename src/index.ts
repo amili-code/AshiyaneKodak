@@ -35,6 +35,8 @@ app.use("/payment", PaymentController);
 import RelationalControllers from "./modules/relationalModules/relationalControllers";
 app.use("/rel", RelationalControllers);
 
+import smsController from "./modules/Sms/smsController";
+app.use("/sms", smsController);
 
 app.use(catchHandler)
 

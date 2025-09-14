@@ -1,5 +1,6 @@
 import ChildGrade from '../../models/ChildGrade';
 import { Child } from '../../models';
+import { where } from 'sequelize';
 
 export const createChildGrade = async (data) => {
   return await ChildGrade.create(data);
@@ -21,6 +22,12 @@ export const getAllChildGradesMax = async () => {
 
 export const getChildGradeById = async (id: number) => {
   return await ChildGrade.findByPk(id);
+};
+
+export const getChildGradeByChildId = async (id: number) => {
+  return await ChildGrade.findAll({where:{
+    childId : id
+  }});
 };
 
 export const updateChildGrade = async (id: number, data) => {
