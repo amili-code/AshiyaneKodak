@@ -32,6 +32,18 @@ app.use("/moteghayer", MotaghayeratController);
 import PaymentController from "./modules/Peyment/PaymentController"
 app.use("/payment", PaymentController);
 
+import insuranceController from "./modules/Insurance/insuranceController"
+app.use("/insurance", insuranceController);
+
+import leaveContorller from "./modules/Leave/leaveContorller"
+app.use("/leave", leaveContorller);
+
+import slaryController from "./modules/Salary/slaryController"
+app.use("/salary", slaryController);
+
+import teacherController from "./modules/Teachers/teacherController"
+app.use("/teacher", teacherController);
+
 import RelationalControllers from "./modules/relationalModules/relationalControllers";
 app.use("/rel", RelationalControllers);
 
@@ -47,9 +59,20 @@ async function startServer() {
     const db = getDbConnection();
     await db.authenticate();
     
-    // سینک مدل‌ها با دیتابیس (میگریشن خودکار)
-    // import {Child,ChildGrade,Motaghayerat,Payment} from './models'
+    // // ابتدا مدل‌های اصلی
+    // import {Child,ChildGrade,Motaghayerat,Payment,Insurance,Leave,Salary,Teacher} from './models'
+    // await Teacher.sync({ alter: true });
     // await Child.sync({ alter: true });
+    
+    // // سپس مدل‌های وابسته
+    // await Promise.all([
+    //     Insurance.sync({ alter: true }),
+    //     Leave.sync({ alter: true }),
+    //     Salary.sync({ alter: true }),
+    //     ChildGrade.sync({ alter: true }),
+    //     Motaghayerat.sync({ alter: true }),
+    //     Payment.sync({ alter: true })
+    // ]);
     logger.info("✅ Database migrated & connected successfully");
 
     app.listen(ENV.PORT, () => {

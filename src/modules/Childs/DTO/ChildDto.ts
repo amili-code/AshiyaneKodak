@@ -2,11 +2,7 @@ import {
   IsNotEmpty,
   IsString,
   IsIn,
-  IsInt,
-  Min,
-  Max,
   IsOptional,
-  IsUrl,
   Matches,
 } from 'class-validator';
 
